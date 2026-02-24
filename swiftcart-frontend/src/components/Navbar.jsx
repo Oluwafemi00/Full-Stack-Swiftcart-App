@@ -10,7 +10,7 @@ export default function Navbar({ setSearchQuery }) {
   const { cartCount, setIsCartOpen } = useCart(); // Get the live count
 
   // 2. Extract our user and our role switcher function
-  const { user, switchRole } = useAuth();
+  const { user, switchRole, logout } = useAuth();
 
   return (
     <header className="topbar">
@@ -42,10 +42,21 @@ export default function Navbar({ setSearchQuery }) {
 
       {/* DYNAMIC LINKS BASED ON ROLE */}
       <nav className={`links ${isMobileMenuOpen ? "open" : ""}`}>
-        {/* Everyone gets to see the Shop (Home page) */}
-        <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>
-          Shop
-        </NavLink>
+        {/* DYNAMIC SHOP LINK */}
+        {user.role === "guest" ? (
+          // If they are a guest, clicking Shop forces them to register
+          <NavLink
+            to="/register-buyer"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Shop
+          </NavLink>
+        ) : (
+          // If they are already logged in (buyer, etc), it acts normally
+          <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>
+            Shop
+          </NavLink>
+        )}
 
         {/* 1. GUEST & BUYER VIEW */}
         {(user.role === "guest" || user.role === "buyer") && (
@@ -79,8 +90,36 @@ export default function Navbar({ setSearchQuery }) {
           </NavLink>
         )}
 
+        {/* 1. Show Login for Guests */}
+        {user.role === "guest" && (
+          <NavLink to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+            Log In
+          </NavLink>
+        )}
+
+        {/* 2. Show Logout for anyone who is logged in! */}
+        {user.role !== "guest" && (
+          <button
+            onClick={() => {
+              logout(); // Destroy token and reset state
+              setIsMobileMenuOpen(false);
+            }}
+            style={{
+              background: "transparent",
+              border: "1px solid var(--border)",
+              color: "white",
+              padding: "8px 15px",
+              borderRadius: "5px",
+              cursor: "pointer",
+              marginLeft: "10px",
+            }}
+          >
+            Log Out
+          </button>
+        )}
+
         {/* DEMO DROPDOWN: So you can keep testing your UI easily */}
-        <select
+        {/* <select
           value={user.role}
           onChange={(e) => switchRole(e.target.value)}
           style={{
@@ -96,7 +135,7 @@ export default function Navbar({ setSearchQuery }) {
           <option value="buyer">View as Buyer</option>
           <option value="seller">View as Seller</option>
           <option value="rider">View as Rider</option>
-        </select>
+        </select> */}
       </nav>
 
       {/* Only Guests and Buyers need the Shopping Cart! */}

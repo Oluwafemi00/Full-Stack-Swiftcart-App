@@ -1,6 +1,7 @@
-// src/components/ProductCard.jsx
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // 👈 Import navigate
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext"; // 👈 Import Auth
 
 import "./ProductCard.css";
 
@@ -8,7 +9,16 @@ export default function ProductCard({ product }) {
   const [showToast, setShowToast] = useState(false);
 
   const { addToCart } = useCart();
+  const { user } = useAuth(); // 👈 Extract user
+  const navigate = useNavigate(); // 👈 Initialize navigate
+
   const handleAddToCart = () => {
+    // THE GATE: If they are a guest, kick them to the signup page!
+    if (user.role === "guest") {
+      navigate("/register-buyer");
+      return; // Stop the function here so the item doesn't get added
+    }
+
     addToCart(product);
 
     // Trigger the modern toast

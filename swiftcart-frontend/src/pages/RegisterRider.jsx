@@ -1,17 +1,44 @@
 // src/pages/RegisterRider.jsx
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Register.css";
 
 export default function RegisterRider() {
   const navigate = useNavigate();
-  const { switchRole } = useAuth();
+  const { registerAccount } = useAuth();
 
-  const handleSignup = (e) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phone: "", // Extra field for the rider to be contacted!
+  });
+
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSignup = async (e) => {
     e.preventDefault();
-    // Simulate signing up and instantly logging in as a Rider!
-    switchRole("rider");
-    navigate("/rider");
+    setIsLoading(true);
+    setError("");
+
+    // Send the data to Express, ensuring the role is 'rider'
+    const result = await registerAccount({
+      ...formData,
+      role: "rider",
+    });
+
+    if (result.success) {
+      navigate("/rider"); // Instantly redirect to the logistics portal!
+    } else {
+      setError(result.error);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -38,9 +65,54 @@ export default function RegisterRider() {
           </li>
         </ul>
 
+        {error && (
+          <div
+            style={{
+              color: "red",
+              marginBottom: "15px",
+              background: "#ffebee",
+              padding: "10px",
+              borderRadius: "5px",
+            }}
+          >
+            {error}
+          </div>
+        )}
+
         <form className="register-form" onSubmit={handleSignup}>
-          <input type="text" placeholder="Full Name" required />
-          <input type="tel" placeholder="Phone Number" required />
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            required
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            required
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            required
+            value={formData.phone}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Create Password"
+            required
+            value={formData.password}
+            onChange={handleChange}
+          />
+          {/* We keep the vehicle select purely for visual UI, though we aren't saving it to the DB right now */}
           <select
             style={{
               padding: "14px",
@@ -58,8 +130,9 @@ export default function RegisterRider() {
             type="submit"
             className="btn-primary"
             style={{ background: "#22c55e" }}
+            disabled={isLoading}
           >
-            Join the Fleet
+            {isLoading ? "Processing..." : "Join the Fleet"}
           </button>
         </form>
       </div>

@@ -1,41 +1,45 @@
-// src/pages/RegisterSeller.jsx
+// src/pages/RegisterBuyer.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Register.css";
 
-export default function RegisterSeller() {
+export default function RegisterBuyer() {
   const navigate = useNavigate();
-  const { registerAccount } = useAuth();
+  const { registerAccount } = useAuth(); // Get our new API function!
 
+  // 1. State to track what the user types
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
+  // State for showing errors to the user
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  // 2. Handle typing in the inputs
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // 3. Submit the data to PostgreSQL!
   const handleSignup = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
 
-    // Send the data to Express, ensuring the role is 'seller'
+    // Call the AuthContext function, explicitly setting the role to 'buyer'
     const result = await registerAccount({
       ...formData,
-      role: "seller",
+      role: "buyer",
     });
 
     if (result.success) {
-      navigate("/seller"); // Instantly redirect to their new dashboard!
+      navigate("/"); // Success! Send them to the shop
     } else {
-      setError(result.error);
+      setError(result.error); // Show the error from Express (e.g., "Email taken")
       setIsLoading(false);
     }
   };
@@ -43,25 +47,13 @@ export default function RegisterSeller() {
   return (
     <main className="register-page container">
       <div className="register-card">
-        <span className="register-icon">🏪</span>
-        <h1>Partner with SwiftCart</h1>
+        <span className="register-icon">🛍️</span>
+        <h1>Create a Buyer Account</h1>
         <p>
-          Turn your inventory into revenue. Reach thousands of buyers and manage
-          your store with our powerful dashboard.
+          Join SwiftCart to discover amazing products from verified sellers.
         </p>
 
-        <ul className="register-benefits">
-          <li>
-            ✅ <strong>Zero setup fees.</strong> Start selling instantly.
-          </li>
-          <li>
-            ✅ <strong>Next-day payouts.</strong> Keep your cash flow healthy.
-          </li>
-          <li>
-            ✅ <strong>Automated logistics.</strong> Our riders handle delivery.
-          </li>
-        </ul>
-
+        {/* Show database errors here if they happen */}
         {error && (
           <div
             style={{
@@ -77,10 +69,11 @@ export default function RegisterSeller() {
         )}
 
         <form className="register-form" onSubmit={handleSignup}>
+          {/* Add name="" attributes and onChange handlers to track typing */}
           <input
             type="text"
             name="name"
-            placeholder="Business Name"
+            placeholder="Full Name"
             required
             value={formData.name}
             onChange={handleChange}
@@ -88,7 +81,7 @@ export default function RegisterSeller() {
           <input
             type="email"
             name="email"
-            placeholder="Business Email"
+            placeholder="Email Address"
             required
             value={formData.email}
             onChange={handleChange}
@@ -101,8 +94,9 @@ export default function RegisterSeller() {
             value={formData.password}
             onChange={handleChange}
           />
+
           <button type="submit" className="btn-primary" disabled={isLoading}>
-            {isLoading ? "Creating Account..." : "Create Seller Account"}
+            {isLoading ? "Creating Account..." : "Start Shopping"}
           </button>
         </form>
       </div>

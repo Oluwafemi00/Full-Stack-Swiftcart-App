@@ -18,6 +18,8 @@ import SellerDashboard from "./pages/SellerDashboard";
 import RiderPortal from "./pages/RiderPortal";
 import RegisterSeller from "./pages/RegisterSeller";
 import RegisterRider from "./pages/RegisterRider";
+import RegisterBuyer from "./pages/RegisterBuyer";
+import Login from "./pages/Login";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user } = useAuth();
@@ -87,6 +89,15 @@ export default function App() {
             />
 
             <Route
+              path="/register-buyer"
+              element={
+                <ProtectedRoute allowedRoles={["guest", "buyer"]}>
+                  <RegisterBuyer />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
               path="/seller"
               element={
                 <ProtectedRoute allowedRoles={["seller"]}>
@@ -100,6 +111,14 @@ export default function App() {
               element={
                 <ProtectedRoute allowedRoles={["rider"]}>
                   <RiderPortal />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <ProtectedRoute allowedRoles={["guest"]}>
+                  <Login />
                 </ProtectedRoute>
               }
             />
