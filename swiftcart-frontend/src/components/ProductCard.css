@@ -1,0 +1,66 @@
+.product {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.product:hover {
+  transform: translateY(-8px);
+  /* Adds a soft, SwiftCart-orange glow behind the card */
+  box-shadow: 0 12px 30px rgba(255, 90, 60, 0.15);
+  border-color: rgba(255, 90, 60, 0.3);
+}
+
+.product img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.product h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.product .con {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  flex-grow: 1;
+}
+
+.rating {
+  color: var(--text-muted);
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.rating .star {
+  color: var(--primary);
+}
+
+.product h2 {
+  color: var(--primary);
+  font-size: 1.5rem;
+  margin-top: auto;
+}
+
+.btn-add {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  font-weight: 600;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+.btn-add:hover {
+  background-color: #e04424;
+  transform: scale(1.05); /* Slight pop out */
+  box-shadow: 0 4px 15px rgba(255, 90, 60, 0.4); /* Button glow */
+}

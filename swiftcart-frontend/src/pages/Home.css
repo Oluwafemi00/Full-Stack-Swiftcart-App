@@ -1,0 +1,169 @@
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 100px 20px 60px;
+}
+.hero h1 {
+  font-size: 44px;
+  margin-bottom: 16px;
+}
+.hero h1 span {
+  color: var(--primary);
+}
+.hero p {
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto 32px;
+}
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+.button1 {
+  background: var(--primary);
+  color: white;
+  padding: 12px 24px;
+  font-weight: 600;
+}
+.button2 {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: white;
+  padding: 12px 24px;
+}
+
+/* Features & Stats */
+.features,
+.stats {
+  display: grid;
+  gap: 20px;
+  text-align: center;
+  margin: 40px auto;
+  max-width: 1000px;
+}
+.features {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.stats {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.feature-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 24px;
+  border-radius: 16px;
+}
+.stat h2 {
+  color: var(--primary);
+  font-size: 32px;
+}
+
+/* Featured Grid */
+.featured-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.btn-display {
+  display: flex;
+  gap: 5px;
+}
+.btn-display button {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: white;
+  padding: 8px 12px;
+}
+.btn-display button.active,
+.btn-display button:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+/* =========================================
+   Info Section (How SwiftCart Works)
+========================================= */
+.info {
+  background-color: var(--bg-card);
+  padding: 4rem 0; /* A bit more padding for breathing room */
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Center the main heading perfectly */
+.info > div:first-child h3 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.info-container {
+  display: flex;
+  justify-content: center; /* Centers the 3 blocks */
+  gap: 4rem; /* Restores the original spacing between columns */
+  text-align: center;
+  flex-wrap: wrap; /* Allows stacking on smaller screens */
+}
+
+/* Restoring your original 300px width constraint */
+.info-container > div {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.num {
+  color: var(--primary);
+  background: rgba(255, 90, 60, 0.1);
+  width: 4rem;
+  height: 4rem;
+  line-height: 4rem;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.info-container h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.info-container p {
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* =========================================
+   Footer Section
+========================================= */
+footer {
+  padding: 2rem 0;
+}
+
+.favicon {
+  display: flex;
+  justify-content: space-around; /* This centers and spaces out the logo and text beautifully */
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.favicon h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.favicon p {
+  color: var(--text-muted);
+}

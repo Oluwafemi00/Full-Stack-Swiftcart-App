@@ -1,0 +1,107 @@
+/* src/pages/OrderSuccess.css */
+
+.success-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  min-height: 80vh; /* Ensures it perfectly centers vertically under the navbar */
+}
+
+.success-card {
+  background: var(--bg-card);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  padding: 40px;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Added a soft shadow to lift the card */
+}
+
+/* Checkmark Icon */
+.success-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--success);
+  color: #04120a; /* Dark green for contrast against the bright green background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+/* Typography */
+.success-card h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.success-card p {
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Order Details Box */
+.order-details {
+  background: #060a10; /* Slightly darker than the card to create depth */
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.detail-row span:first-child {
+  color: var(--text-muted);
+}
+
+.detail-row span:last-child {
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.actions .btn {
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.actions .btn.primary {
+  background: var(--primary);
+  color: white;
+}
+
+.actions .btn.secondary {
+  background: transparent;
+  color: white;
+  border: 1px solid var(--border);
+}
+
+.actions .btn:hover {
+  transform: translateY(-2px); /* Smooth lift effect on hover */
+  opacity: 0.9;
+}

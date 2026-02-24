@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+swiftcart-frontend/node_modules/
+swiftcart-backend/node_modules/
+
+# Environment variables (NEVER COMMIT THESE)
+.env
+.env.local
+
+# Build files
+dist/
+build/
+swiftcart-frontend/dist/
+
+# OS generated files
+.DS_Store

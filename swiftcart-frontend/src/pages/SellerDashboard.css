@@ -1,0 +1,130 @@
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashboard-header h1 {
+  font-size: 26px;
+}
+.actions {
+  display: flex;
+  gap: 12px;
+}
+.notify {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: white;
+  padding: 10px 14px;
+}
+.badge {
+  background: var(--primary);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+.add-product {
+  background: var(--primary);
+  color: white;
+  padding: 10px 16px;
+}
+
+.stats {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: var(--bg-card);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+.card h2 {
+  margin: 10px 0;
+  font-size: 28px;
+}
+.positive {
+  color: var(--success);
+  font-size: 14px;
+}
+
+.orders {
+  margin-top: 30px;
+}
+.tabs {
+  display: flex;
+  gap: 10px;
+}
+.tab {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+}
+.tab.active {
+  background: var(--primary);
+  color: white;
+}
+.orders-box {
+  margin-top: 20px;
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.products-section {
+  margin-top: 40px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  padding: 24px;
+}
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.table-header {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.table-row:last-child {
+  border-bottom: none;
+}
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.icon {
+  width: 36px;
+  height: 36px;
+  background: #111827;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stock {
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 13px;
+  width: fit-content;
+}
+.stock.good {
+  background: #111827;
+  color: #e5e7eb;
+}
+.stock.low {
+  background: #ef4444;
+  color: white;
+}

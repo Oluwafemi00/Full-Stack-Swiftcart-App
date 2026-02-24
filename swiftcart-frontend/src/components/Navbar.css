@@ -1,0 +1,156 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px 30px;
+
+  /* The Glassmorphism Magic */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(7, 11, 20, 0.7); /* Semi-transparent dark background */
+  backdrop-filter: blur(12px); /* The frosted glass blur effect */
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Subtle glowing border */
+  transition: all 0.3s ease;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.logo-box {
+  background: var(--primary);
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: var(--bg-card);
+}
+.search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.links {
+  display: flex;
+  gap: 10px;
+}
+.links a {
+  color: var(--text-muted);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.links a.active,
+.links a:hover {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: white;
+}
+
+.cart {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+}
+
+/* Mobile Adjustments (Replace your old media query with this) */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+    z-index: 2001; /* Keeps the X button above the menu */
+    position: relative;
+  }
+
+  /* The Mobile Drawer - Upgraded to Full Screen Frosted Glass */
+  .links {
+    display: flex !important; /* This overrides the old display: none! */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(7, 11, 20, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px; /* Bigger text for mobile tapping */
+    gap: 40px;
+
+    /* Animation */
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2000;
+  }
+
+  .links.open {
+    transform: translateY(0); /* Slides down smoothly */
+  }
+}
+/* Add to src/components/Navbar.css */
+
+.cart-badge {
+  background: var(--primary);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.hamburger {
+  display: none; /* Hidden by default */
+  background: transparent;
+  color: white;
+  font-size: 24px;
+  border: none;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+
+  /* The Mobile Drawer */
+  .links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: var(--bg-card);
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-150%); /* Hidden off-screen */
+    transition: transform 0.3s ease-in-out;
+    z-index: 99;
+  }
+
+  .links.open {
+    transform: translateY(0); /* Slides in */
+  }
+}

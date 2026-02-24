@@ -1,0 +1,102 @@
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* Form Inputs */
+input[type="text"] {
+  width: 100%;
+  background: #060a10;
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: 8px;
+  color: white;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+input[type="text"]:disabled {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* Summary Row */
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-size: 15px;
+}
+.item.total {
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--primary);
+}
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 15px 0;
+}
+
+/* Rider Options */
+.rider-list {
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+/* Custom Scrollbar for the list */
+.rider-list::-webkit-scrollbar {
+  width: 6px;
+}
+.rider-list::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+.option {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 12px;
+  cursor: pointer;
+  background: #060a10;
+  transition: border-color 0.2s;
+}
+.option:hover {
+  border-color: var(--primary);
+}
+.option input[type="radio"] {
+  margin-top: 4px;
+  accent-color: var(--primary);
+}
+
+.confirm-btn {
+  width: 100%;
+  margin-top: 25px;
+  padding: 16px;
+  background: var(--success);
+  color: #04120a;
+  font-size: 18px;
+  font-weight: bold;
+}
+.confirm-btn:disabled {
+  background: #0e8a40;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.confirm-btn:not(:disabled):hover {
+  background: #19c15a;
+}
