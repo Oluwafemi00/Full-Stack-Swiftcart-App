@@ -4,22 +4,26 @@ import { createContext, useState, useContext } from "react";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  // For your portfolio demo, we will create a mock user.
-  // You can change this role to 'seller' or 'rider' to test the different views!
+  // 1. We now default the app to a 'guest' state!
   const [user, setUser] = useState({
-    id: 1,
-    name: "Test Buyer",
-    role: "buyer", // roles: 'buyer', 'seller', 'rider'
+    id: null,
+    name: "Guest User",
+    role: "guest", // roles: 'guest', 'buyer', 'seller', 'rider'
   });
 
-  // A helper function so you can easily switch accounts from the UI during your demo
   const switchRole = (newRole) => {
     const names = {
-      buyer: "Test Buyer",
+      guest: "Guest User",
+      buyer: "Logged-in Buyer",
       seller: "Test Seller",
-      rider: "Abdulrahman Sanni",
+      rider: "Test Rider",
     };
-    setUser({ id: 1, name: names[newRole], role: newRole });
+    // Assign a fake ID if they are logged in, or null if they are a guest
+    setUser({
+      id: newRole === "guest" ? null : 1,
+      name: names[newRole],
+      role: newRole,
+    });
   };
 
   return (

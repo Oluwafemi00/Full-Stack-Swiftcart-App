@@ -40,30 +40,46 @@ export default function Navbar({ setSearchQuery }) {
         {isMobileMenuOpen ? "✖" : "☰"}
       </button>
 
-      {/* 3. DYNAMIC LINKS BASED ON ROLE */}
+      {/* DYNAMIC LINKS BASED ON ROLE */}
       <nav className={`links ${isMobileMenuOpen ? "open" : ""}`}>
-        {/* Buyer Links */}
-        {user.role === "buyer" && (
-          <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>
-            Shop
-          </NavLink>
+        {/* Everyone gets to see the Shop (Home page) */}
+        <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>
+          Shop
+        </NavLink>
+
+        {/* 1. GUEST & BUYER VIEW */}
+        {(user.role === "guest" || user.role === "buyer") && (
+          <>
+            <NavLink
+              to="/register-seller"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Become a Seller
+            </NavLink>
+            <NavLink
+              to="/register-rider"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Become a Rider
+            </NavLink>
+          </>
         )}
 
-        {/* Seller Links */}
+        {/* 2. SELLER VIEW */}
         {user.role === "seller" && (
           <NavLink to="/seller" onClick={() => setIsMobileMenuOpen(false)}>
             Seller Dashboard
           </NavLink>
         )}
 
-        {/* Rider Links */}
+        {/* 3. RIDER VIEW */}
         {user.role === "rider" && (
           <NavLink to="/rider" onClick={() => setIsMobileMenuOpen(false)}>
             Rider Portal
           </NavLink>
         )}
 
-        {/* 4. PORTFOLIO DEMO: A quick dropdown to switch roles to show off your app */}
+        {/* DEMO DROPDOWN: So you can keep testing your UI easily */}
         <select
           value={user.role}
           onChange={(e) => switchRole(e.target.value)}
@@ -73,16 +89,18 @@ export default function Navbar({ setSearchQuery }) {
             border: "1px solid #1f2630",
             padding: "5px",
             borderRadius: "5px",
+            marginLeft: "10px",
           }}
         >
+          <option value="guest">View as Guest</option>
           <option value="buyer">View as Buyer</option>
           <option value="seller">View as Seller</option>
           <option value="rider">View as Rider</option>
         </select>
       </nav>
 
-      {/* Only show the cart to buyers! */}
-      {user.role === "buyer" && (
+      {/* Only Guests and Buyers need the Shopping Cart! */}
+      {(user.role === "guest" || user.role === "buyer") && (
         <div
           className="cart"
           style={{ cursor: "pointer" }}

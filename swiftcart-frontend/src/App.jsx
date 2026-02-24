@@ -7,7 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
-import { AuthProvider, useAuth } from "./context/AuthContext"; // Import Auth
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
 import Navbar from "./components/Navbar";
 import CartDrawer from "./components/CartDrawer";
@@ -16,14 +16,13 @@ import Checkout from "./pages/Checkout";
 import OrderSuccess from "./pages/OrderSuccess";
 import SellerDashboard from "./pages/SellerDashboard";
 import RiderPortal from "./pages/RiderPortal";
+import RegisterSeller from "./pages/RegisterSeller";
+import RegisterRider from "./pages/RegisterRider";
 
-// 1. Create a Route Guard Component
-// This checks if the user's role matches the allowed role for the page
-const ProtectedRoute = ({ children, allowedRole }) => {
+const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user } = useAuth();
 
-  if (user.role !== allowedRole) {
-    // If a buyer tries to go to the seller page, kick them back to the home page!
+  if (!allowedRoles.includes(user.role)) {
     return <Navigate to="/" replace />;
   }
   return children;
@@ -34,55 +33,72 @@ export default function App() {
 
   return (
     <AuthProvider>
-      {" "}
-      {/* 2. Wrap the whole app in AuthProvider */}
       <CartProvider>
         <Router>
+          {/* Navbar and Drawer sit OUTSIDE the Routes so they show on every page */}
           <Navbar setSearchQuery={setSearchQuery} />
           <CartDrawer />
 
+          {/* All Route components MUST be wrapped inside Routes */}
           <Routes>
-            {/* BUYER ROUTES */}
             <Route
               path="/"
               element={
-                <ProtectedRoute allowedRole="buyer">
+                <ProtectedRoute allowedRoles={["guest", "buyer"]}>
                   <Home searchQuery={searchQuery} />
                 </ProtectedRoute>
               }
             />
+
             <Route
               path="/checkout"
               element={
-                <ProtectedRoute allowedRole="buyer">
+                <ProtectedRoute allowedRoles={["guest", "buyer"]}>
                   <Checkout />
                 </ProtectedRoute>
               }
             />
+
             <Route
               path="/order-success"
               element={
-                <ProtectedRoute allowedRole="buyer">
+                <ProtectedRoute allowedRoles={["guest", "buyer"]}>
                   <OrderSuccess />
                 </ProtectedRoute>
               }
             />
 
-            {/* SELLER ROUTES */}
+            {/* REGISTRATION ROUTES */}
+            <Route
+              path="/register-seller"
+              element={
+                <ProtectedRoute allowedRoles={["guest", "buyer"]}>
+                  <RegisterSeller />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/register-rider"
+              element={
+                <ProtectedRoute allowedRoles={["guest", "buyer"]}>
+                  <RegisterRider />
+                </ProtectedRoute>
+              }
+            />
+
             <Route
               path="/seller"
               element={
-                <ProtectedRoute allowedRole="seller">
+                <ProtectedRoute allowedRoles={["seller"]}>
                   <SellerDashboard />
                 </ProtectedRoute>
               }
             />
 
-            {/* RIDER ROUTES */}
             <Route
               path="/rider"
               element={
-                <ProtectedRoute allowedRole="rider">
+                <ProtectedRoute allowedRoles={["rider"]}>
                   <RiderPortal />
                 </ProtectedRoute>
               }
