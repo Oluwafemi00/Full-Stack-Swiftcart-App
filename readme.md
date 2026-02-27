@@ -7,30 +7,30 @@
 ![Node.js](https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-339933?logo=nodedotjs&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-4169E1?logo=postgresql&logoColor=white)
 
-## 🚀 Overview
+## Overview
 
 Unlike traditional e-commerce apps that only focus on the shopping experience, SwiftCart handles the entire lifecycle of an order. It features three distinct user portals running on a single, unified database architecture.
 
-### ✨ Key Features
+### Key Features
 
-🛍️ **For Buyers (The Shop)**
+**For Buyers (The Shop)**
 
 - **Live Global Search:** Instantly filters products using compound React state (Search Query + Category Filters).
 - **Global Cart State:** Built with the React Context API for seamless interactions between the product grid, sliding cart drawer, and navigation badge.
 - **Transactional Checkout:** Backend API utilizes strict SQL `BEGIN/COMMIT/ROLLBACK` transactions to ensure inventory is never deducted if a payment step fails.
 - **Modern UI/UX:** Glassmorphic sticky navigation, custom CSS toast notifications, and dynamic empty-state fallbacks.
 
-🏪 **For Sellers (The Dashboard)**
+  **For Sellers (The Dashboard)**
 
 - **Real-Time Analytics:** Aggregates live data via SQL `JOIN` operations to calculate "Total Revenue" and "Orders Today" dynamically.
 - **Inventory Tracking:** Visual indicators shift automatically based on backend stock levels.
 
-🛵 **For Riders (The Logistics Portal)**
+  **For Riders (The Logistics Portal)**
 
 - **Live Order Pool:** Riders can toggle their online status and view a real-time pool of pending orders waiting for pickup.
 - **Order Claiming:** One-click acceptance triggers a backend `UPDATE` that assigns the order and removes it from the global available pool to prevent double-booking.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend:** React.js, React Router DOM, Custom Scoped CSS (Flexbox/Grid/Glassmorphism).
 - **Backend:** Node.js, Express.js, CORS.
