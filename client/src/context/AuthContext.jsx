@@ -10,6 +10,34 @@ export function AuthProvider({ children }) {
     role: "guest",
   });
 
+  // 1. Check for token on initial load
+  useEffect(() => {
+    const verifyUser = async () => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        try {
+          // Ask the backend who this token belongs to
+          const response = await fetch("http://localhost:5000/api/auth/me", {
+            headers: { Authorization: `Bearer ${token}` }, // Send the token!
+          });
+
+          if (response.ok) {
+            const userData = await response.json();
+            setUser(userData); // Automatically log them back in!
+          } else {
+            // If the token is expired or invalid, destroy it
+            localStorage.removeItem("token");
+          }
+        } catch (error) {
+          console.error("Failed to verify session", error);
+        }
+      }
+    };
+
+    verifyUser();
+  }, []); // Empty array means this runs exactly once when the app opens
+
   // 1. A real function to register users via your Express API
   const registerAccount = async (userData) => {
     try {
@@ -67,28 +95,15 @@ export function AuthProvider({ children }) {
     setUser({ id: null, name: "Guest User", role: "guest" }); // Reset to guest state
   };
 
-  // Portfolio Demo Function (Keep this so you can still quickly test roles!)
-  const switchRole = (newRole) => {
-    const names = {
-      guest: "Guest User",
-      buyer: "Test Buyer",
-      seller: "Test Seller",
-      rider: "Test Rider",
-    };
-    setUser({
-      id: newRole === "guest" ? null : 1,
-      name: names[newRole],
-      role: newRole,
-    });
-  };
-
   return (
     <AuthContext.Provider
-      value={{ user, switchRole, registerAccount, loginAccount, logout }}
+      value={{ user, registerAccount, loginAccount, logout }}
     >
       {children}
     </AuthContext.Provider>
   );
 }
 
+// 👈 ADD THIS COMMENT RIGHT HERE!
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

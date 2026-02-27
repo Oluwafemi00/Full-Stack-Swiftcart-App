@@ -20,6 +20,7 @@ import RegisterSeller from "./pages/RegisterSeller";
 import RegisterRider from "./pages/RegisterRider";
 import RegisterBuyer from "./pages/RegisterBuyer";
 import Login from "./pages/Login";
+import MyOrders from "./pages/MyOrders";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user } = useAuth();
@@ -43,14 +44,7 @@ export default function App() {
 
           {/* All Route components MUST be wrapped inside Routes */}
           <Routes>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute allowedRoles={["guest", "buyer"]}>
-                  <Home searchQuery={searchQuery} />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/" element={<Home searchQuery={searchQuery} />} />
 
             <Route
               path="/checkout"
@@ -69,6 +63,7 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/my-orders" element={<MyOrders />} />
 
             {/* REGISTRATION ROUTES */}
             <Route
@@ -114,14 +109,7 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/login"
-              element={
-                <ProtectedRoute allowedRoles={["guest"]}>
-                  <Login />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </Router>
       </CartProvider>

@@ -1,6 +1,6 @@
 // src/pages/Login.jsx
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Register.css";
 
@@ -21,20 +21,26 @@ export default function Login() {
     setIsLoading(true);
     setError("");
 
-    // Call our new context function
     const result = await loginAccount(formData);
+    console.log("LOGIN RESULT:", result);
 
     if (result.success) {
-      // THE MAGIC ROUTER: Redirect them based on who the database says they are!
-      if (result.role === "seller") navigate("/seller");
-      else if (result.role === "rider") navigate("/rider");
-      else navigate("/"); // Buyers go to the home shop
+      const cleanRole = result.role ? result.role.trim().toLowerCase() : "";
+      console.log(`Cleaned Role is: '${cleanRole}'`);
+
+      // We can use the smooth navigate again!
+      if (cleanRole === "seller") {
+        navigate("/seller");
+      } else if (cleanRole === "rider") {
+        navigate("/rider");
+      } else {
+        navigate("/");
+      }
     } else {
-      setError(result.error);
+      setError(result.error || "Failed to log in.");
       setIsLoading(false);
     }
   };
-
   return (
     <main className="register-page container">
       <div className="register-card">

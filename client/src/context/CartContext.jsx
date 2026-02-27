@@ -1,9 +1,17 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]);
+  // 1. Check local storage first! If it exists, parse it. If not, start empty.
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem("swiftcart_items");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+  // 2. Automatically save the cart to local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("swiftcart_items", JSON.stringify(cartItems));
+  }, [cartItems]); // This array tells React to only run this when 'cart' updates
 
   // New UI State to control the sliding drawer
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -40,6 +48,11 @@ export function CartProvider({ children }) {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  // 1. ADD THIS CRITICAL FUNCTION for your Checkout page!
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const cartSubtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -55,8 +68,9 @@ export function CartProvider({ children }) {
         cartSubtotal,
         updateQuantity,
         removeProduct,
+        clearCart, // 2. Add it to the exported values!
         isCartOpen,
-        setIsCartOpen, // Export the drawer controls
+        setIsCartOpen,
       }}
     >
       {children}
@@ -64,4 +78,6 @@ export function CartProvider({ children }) {
   );
 }
 
+// 3. ADD THIS MAGICAL COMMENT to silence the Fast Refresh warning!
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => useContext(CartContext);

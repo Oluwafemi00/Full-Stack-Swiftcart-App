@@ -92,6 +92,24 @@ const loginUser = async (req, res) => {
     console.error("Login Error:", error.message);
     res.status(500).json({ error: "Server error during login." });
   }
-};
+}; // GET /api/auth/me
+const getMe = async (req, res) => {
+  try {
+    // req.user.id comes directly from our protect middleware!
+    const result = await pool.query(
+      "SELECT id, name, email, role FROM users WHERE id = $1",
+      [req.user.id],
+    );
 
-module.exports = { registerUser, loginUser };
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Send the user data back to React
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error("GetMe Error:", error.message);
+    res.status(500).json({ error: "Server error fetching user data." });
+  }
+};
+module.exports = { registerUser, loginUser, getMe };
